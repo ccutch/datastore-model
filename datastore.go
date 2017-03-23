@@ -1,9 +1,10 @@
 package db
 
 import (
-	"google.golang.org/appengine"
-	"google.golang.org/appengine/datastore"
+	"context"
 	"time"
+
+	"google.golang.org/appengine/datastore"
 )
 
 type Clock func() time.Time
@@ -27,14 +28,14 @@ type Entity interface {
 // provide its features.
 //
 type Datastore struct {
-	context     appengine.Context
+	context     context.Context
 	Clock       Clock
 	KeyResolver *KeyResolver
 }
 
 // NewDatastore creates a new instance of Datastore
 // with default Clock and KeyResolver
-func NewDatastore(c appengine.Context) Datastore {
+func NewDatastore(c context.Context) Datastore {
 	return Datastore{
 		context:     c,
 		Clock:       time.Now,

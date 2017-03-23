@@ -1,13 +1,13 @@
 package db
 
 import (
-	"google.golang.org/appengine"
+	"context"
 	"reflect"
 )
 
 // Querier provides hight level query operations
 type Querier struct {
-	c appengine.Context
+	c context.Context
 	q *Query
 }
 

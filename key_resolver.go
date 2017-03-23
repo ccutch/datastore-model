@@ -1,16 +1,17 @@
 package db
 
 import (
-	"google.golang.org/appengine"
+	"context"
+
 	"google.golang.org/appengine/datastore"
 )
 
 type KeyResolver struct {
-	context appengine.Context
+	context context.Context
 }
 
 // NewKeyResolver creates a new instance of *KeyResolver
-func NewKeyResolver(c appengine.Context) *KeyResolver {
+func NewKeyResolver(c context.Context) *KeyResolver {
 	return &KeyResolver{
 		context: c,
 	}
