@@ -1,7 +1,7 @@
 package db
 
 import (
-	"appengine/memcache"
+	"google.golang.org/appengine/memcache"
 )
 
 type CachedDatastore struct {

@@ -1,7 +1,7 @@
 package db
 
 import (
-	"appengine/datastore"
+	"google.golang.org/appengine/datastore"
 )
 
 func From(e Entity) *Query {

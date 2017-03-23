@@ -1,9 +1,9 @@
 package db_test
 
 import (
-	"appengine/aetest"
-	"appengine/datastore"
-	"appengine/memcache"
+	"google.golang.org/appengine/aetest"
+	"google.golang.org/appengine/datastore"
+	"google.golang.org/appengine/memcache"
 	"github.com/drborges/datastore-model"
 	"github.com/drborges/goexpect"
 	"testing"

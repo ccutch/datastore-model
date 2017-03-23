@@ -1,7 +1,7 @@
 package db
 
 import (
-	"appengine"
+	"google.golang.org/appengine"
 	"reflect"
 )
 

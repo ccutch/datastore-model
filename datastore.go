@@ -1,8 +1,8 @@
 package db
 
 import (
-	"appengine"
-	"appengine/datastore"
+	"google.golang.org/appengine"
+	"google.golang.org/appengine/datastore"
 	"time"
 )
 

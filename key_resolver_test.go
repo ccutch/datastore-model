@@ -1,8 +1,8 @@
 package db_test
 
 import (
-	"appengine/aetest"
-	"appengine/datastore"
+	"google.golang.org/appengine/aetest"
+	"google.golang.org/appengine/datastore"
 	"github.com/drborges/datastore-model"
 	"github.com/drborges/goexpect"
 	"testing"

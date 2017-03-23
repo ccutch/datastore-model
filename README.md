@@ -104,7 +104,7 @@ golang := new(Tag)
 golang.Name = "golang"
 
 appengine := new(Tag)
-appengine.Name = "appengine"
+appengine.Name = "google.golang.org/appengine"
 
 err := db.NewDatastore(context).CreateAll(golang, appengine)
 ```
@@ -131,7 +131,7 @@ The following code updates multiple entities `Tag` in a single batch:
 
 ```go
 golang := &Tag{Name: "golang"}
-appengine := &Tag{Name: "appengine"}
+appengine := &Tag{Name: "google.golang.org/appengine"}
 
 err := db.NewDatastore(context).UpdateAll(golang, appengine)
 ```
