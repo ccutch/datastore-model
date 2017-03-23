@@ -1,8 +1,10 @@
 package db
 
 import (
-	"google.golang.org/appengine/datastore"
+	"context"
 	"time"
+
+	"google.golang.org/appengine/datastore"
 )
 
 // Model represents a datastore entity
@@ -64,4 +66,13 @@ func (this *Model) SetStringId(uuid string) error {
 // SetKey sets the entity datastore Key
 func (this *Model) SetKey(k *datastore.Key) {
 	this.key = k
+}
+
+func (this *Model) Put(ctx context.Context) error {
+	ds := NewDatastore(ctx)
+	if this.key == nil {
+		return ds.Create(this)
+	}
+
+	return ds.Update(this)
 }
