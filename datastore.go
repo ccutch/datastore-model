@@ -15,7 +15,8 @@ type Entity interface {
 	SetKey(*datastore.Key)
 	Parent() *datastore.Key
 	SetParent(*datastore.Key)
-	SetCreatedAt(time.Time)
+	SetCreated(time.Time)
+	SetUpdated(time.Time)
 	StringId() string
 	SetStringId(string) error
 }
@@ -50,7 +51,9 @@ func (this Datastore) Create(e Entity) error {
 		return err
 	}
 
-	e.SetCreatedAt(this.Clock())
+	t := this.Clock()
+	e.SetCreated(t)
+	e.SetUpdated(t)
 	key, err := datastore.Put(this.context, e.Key(), e)
 	e.SetKey(key)
 
@@ -64,12 +67,16 @@ func (this Datastore) CreateAll(es ...Entity) error {
 		if err := this.AssignNewKey(e); err != nil {
 			// rollback changes to created at of previous entities
 			for j := i; j >= 0; j-- {
-				es[j].SetCreatedAt(time.Time{})
+				t := time.Time{}
+				es[j].SetCreated(t)
+				es[j].SetUpdated(t)
 			}
 			return err
 		}
 		keys[i] = e.Key()
-		e.SetCreatedAt(this.Clock())
+		t := this.Clock()
+		e.SetCreated(t)
+		e.SetCreated(t)
 	}
 	generatedKeys, err := datastore.PutMulti(this.context, keys, es)
 	for i, k := range generatedKeys {

@@ -1,12 +1,13 @@
 package db_test
 
 import (
+	"testing"
+
+	"github.com/ccutch/datastore-model"
+	"github.com/drborges/goexpect"
 	"google.golang.org/appengine/aetest"
 	"google.golang.org/appengine/datastore"
 	"google.golang.org/appengine/memcache"
-	"github.com/drborges/datastore-model"
-	"github.com/drborges/goexpect"
-	"testing"
 )
 
 type MembershipCard struct {
@@ -16,8 +17,8 @@ type MembershipCard struct {
 }
 
 func TestLoadsModelFromCache(t *testing.T) {
-	c, _ := aetest.NewContext(nil)
-	defer c.Close()
+	c, done, _ := aetest.NewContext()
+	defer done()
 
 	card := &MembershipCard{Number: 123, Owner: "Borges"}
 
@@ -40,8 +41,8 @@ func TestLoadsModelFromCache(t *testing.T) {
 }
 
 func TestUpdatesModelInCacheAndDatastore(t *testing.T) {
-	c, _ := aetest.NewContext(nil)
-	defer c.Close()
+	c, done, _ := aetest.NewContext()
+	defer done()
 
 	card := &MembershipCard{Number: 123, Owner: "Borges"}
 
@@ -64,8 +65,8 @@ func TestUpdatesModelInCacheAndDatastore(t *testing.T) {
 }
 
 func TestDeletesModelFromCacheAndDatastore(t *testing.T) {
-	c, _ := aetest.NewContext(nil)
-	defer c.Close()
+	c, done, _ := aetest.NewContext()
+	defer done()
 
 	card := &MembershipCard{Number: 123, Owner: "Borges"}
 
@@ -83,12 +84,12 @@ func TestDeletesModelFromCacheAndDatastore(t *testing.T) {
 }
 
 func TestCachedDatastoreUsesTaggedFieldAsCacheKey(t *testing.T) {
-	c, _ := aetest.NewContext(nil)
-	defer c.Close()
+	c, done, _ := aetest.NewContext()
+	defer done()
 
 	type MembershipCard struct {
 		db.Model
-		Number int `db:"id"`
+		Number int    `db:"id"`
 		Owner  string `cache:"id"`
 	}
 

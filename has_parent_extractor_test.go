@@ -1,18 +1,19 @@
 package db_test
 
 import (
-	"google.golang.org/appengine/aetest"
-	"google.golang.org/appengine/datastore"
-	"github.com/drborges/datastore-model"
-	"github.com/drborges/goexpect"
 	"reflect"
 	"testing"
+
+	"github.com/ccutch/datastore-model"
+	"github.com/drborges/goexpect"
+	"google.golang.org/appengine/aetest"
+	"google.golang.org/appengine/datastore"
 )
 
 func TestHasParentExtractorExtractsFromTagWithoutKindName(t *testing.T) {
 	t.Parallel()
-	c, _ := aetest.NewContext(nil)
-	defer c.Close()
+	c, done, _ := aetest.NewContext()
+	defer done()
 
 	type Tag struct {
 		db.Model `db:",has_parent"`
@@ -36,8 +37,8 @@ func TestHasParentExtractorExtractsFromTagWithoutKindName(t *testing.T) {
 
 func TestHasParentExtractorExtractsFromTagWithKindName(t *testing.T) {
 	t.Parallel()
-	c, _ := aetest.NewContext(nil)
-	defer c.Close()
+	c, done, _ := aetest.NewContext()
+	defer done()
 
 	type Tag struct {
 		db.Model `db:"Tags, has_parent"`

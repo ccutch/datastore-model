@@ -1,16 +1,17 @@
 package db_test
 
 import (
+	"testing"
+
+	"github.com/ccutch/datastore-model"
+	"github.com/drborges/goexpect"
 	"google.golang.org/appengine/aetest"
 	"google.golang.org/appengine/datastore"
-	"github.com/drborges/datastore-model"
-	"github.com/drborges/goexpect"
-	"testing"
 )
 
 func TestKeyResolverExtractMetadataDefaults(t *testing.T) {
-	c, _ := aetest.NewContext(nil)
-	defer c.Close()
+	c, done, _ := aetest.NewContext()
+	defer done()
 
 	type Person struct {
 		db.Model
@@ -34,8 +35,8 @@ func TestKeyResolverExtractMetadataDefaults(t *testing.T) {
 }
 
 func TestKeyResolverResolveEntityWithStringId(t *testing.T) {
-	c, _ := aetest.NewContext(nil)
-	defer c.Close()
+	c, done, _ := aetest.NewContext()
+	defer done()
 
 	type Person struct {
 		db.Model `db:"People"`
@@ -72,8 +73,8 @@ func TestKeyResolverResolveEntityWithMissingStringId(t *testing.T) {
 }
 
 func TestKeyResolverResolveEntityWithIntId(t *testing.T) {
-	c, _ := aetest.NewContext(nil)
-	defer c.Close()
+	c, done, _ := aetest.NewContext()
+	defer done()
 
 	type CreditCard struct {
 		db.Model `db:"CreditCards"`
@@ -110,8 +111,8 @@ func TestKeyResolverResolveEntityWithMissingIntId(t *testing.T) {
 }
 
 func TestKeyResolverExtractReturnsErrMultipleIdFields(t *testing.T) {
-	c, _ := aetest.NewContext(nil)
-	defer c.Close()
+	c, done, _ := aetest.NewContext()
+	defer done()
 
 	type CreditCard struct {
 		db.Model
@@ -131,8 +132,8 @@ func TestKeyResolverExtractReturnsErrMultipleIdFields(t *testing.T) {
 }
 
 func TestKeyResolverResolveEntityWithParentKey(t *testing.T) {
-	c, _ := aetest.NewContext(nil)
-	defer c.Close()
+	c, done, _ := aetest.NewContext()
+	defer done()
 
 	type CreditCard struct {
 		db.Model `db:",has_parent"`
@@ -154,8 +155,8 @@ func TestKeyResolverResolveEntityWithParentKey(t *testing.T) {
 }
 
 func TestKeyResolverResolveEntityWithMissingParentKey(t *testing.T) {
-	c, _ := aetest.NewContext(nil)
-	defer c.Close()
+	c, done, _ := aetest.NewContext()
+	defer done()
 
 	type CreditCard struct {
 		db.Model `db:",has_parent"`
@@ -174,8 +175,8 @@ func TestKeyResolverResolveEntityWithMissingParentKey(t *testing.T) {
 }
 
 func TestKeyResolverResolve(t *testing.T) {
-	c, _ := aetest.NewContext(nil)
-	defer c.Close()
+	c, done, _ := aetest.NewContext()
+	defer done()
 
 	type CreditCard struct {
 		db.Model `db:", has_parent"`
@@ -196,8 +197,8 @@ func TestKeyResolverResolve(t *testing.T) {
 }
 
 func TestKeyResolverResolvesKeyMetadataInfoForEntityWithKeyAlreadySet(t *testing.T) {
-	c, _ := aetest.NewContext(nil)
-	defer c.Close()
+	c, done, _ := aetest.NewContext()
+	defer done()
 
 	type Tag struct {
 		db.Model

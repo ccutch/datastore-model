@@ -2,7 +2,7 @@ package db_test
 
 import (
 	"testing"
-	"github.com/drborges/datastore-model"
+	"github.com/ccutch/datastore-model"
 	"reflect"
 	"github.com/drborges/goexpect"
 )

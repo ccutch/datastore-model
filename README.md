@@ -5,7 +5,7 @@ Experimental somewhat ORM library for working with appengine `datastore`.
 # Installation
 
 ```bash
-$ go get -u github.com/drborges/datastore-model
+$ go get -u github.com/ccutch/datastore-model
 ```
 
 # Usage

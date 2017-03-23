@@ -38,13 +38,15 @@ func (this *KeyResolver) Resolve(e Entity) (*Metadata, error) {
 		return nil, ErrMultipleIdFields
 	}
 
-	e.SetKey(datastore.NewKey(
+	k := datastore.NewKey(
 		this.context,
 		metadata.Kind,
 		metadata.StringID,
 		metadata.IntID,
 		metadata.Parent,
-	))
+	)
+
+	e.SetKey(k)
 
 	if metadata.CacheStringID == "" {
 		metadata.CacheStringID = e.StringId()

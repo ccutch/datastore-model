@@ -1,7 +1,6 @@
 package db
 
 import (
-	"context"
 	"time"
 
 	"google.golang.org/appengine/datastore"
@@ -15,7 +14,8 @@ import (
 type Model struct {
 	key       *datastore.Key `json:"-" datastore:"-"`
 	parentKey *datastore.Key `json:"-" datastore:"-"`
-	CreatedAt time.Time      `json:"-" datastore:",noindex"`
+	Created   time.Time      `json:"-" datastore:",noindex"`
+	Updated   time.Time      `json:"-" datastore:",noindex"`
 }
 
 // HasKey returns true in case the
@@ -42,9 +42,14 @@ func (this *Model) SetParent(parent *datastore.Key) {
 	this.parentKey = parent
 }
 
-// SetCreatedAt sets the entity creation time
-func (this *Model) SetCreatedAt(t time.Time) {
-	this.CreatedAt = t
+// SetCreated sets the entity creation time
+func (this *Model) SetCreated(t time.Time) {
+	this.Created = t
+}
+
+// SetUpdated sets the entity updated time
+func (this *Model) SetUpdated(t time.Time) {
+	this.Updated = t
 }
 
 // StringId Returns the string representation of the datastore key
@@ -66,13 +71,4 @@ func (this *Model) SetStringId(uuid string) error {
 // SetKey sets the entity datastore Key
 func (this *Model) SetKey(k *datastore.Key) {
 	this.key = k
-}
-
-func (this *Model) Put(ctx context.Context) error {
-	ds := NewDatastore(ctx)
-	if this.key == nil {
-		return ds.Create(this)
-	}
-
-	return ds.Update(this)
 }
